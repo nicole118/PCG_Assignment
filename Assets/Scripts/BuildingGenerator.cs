@@ -4,29 +4,23 @@ using UnityEngine;
 
 public class BuildingGenerator : MonoBehaviour
 {
-    float xPos, size;
+    public GameObject buildingsInWorld;
+    public GameObject building;
 
-    ArrayList buildingsList = new ArrayList();
+    List<GameObject> buildingList = new List<GameObject>();
+    GameObject[] buildingsArray;
+
+    int buildingsAmount = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         for (int i = 0; i < 5; i++)
         {
-            float randomx = Random.Range(0, 30); // Random generated X
-            Building newBuilding = new Building(xPos, 0, size);
-
-            buildingsList.Add(newBuilding);
-        }
-        building();
-
-    }
-
-    void building()
-    {
-        foreach (Building b in buildingsList)
-        {
-            b.CreateCube();
+            buildingList.Add(Instantiate<GameObject>(building));
+            buildingsArray = buildingList.ToArray();
+            buildingsArray[i].transform.position = new Vector3(Random.Range(16, 19), 5, Random.Range(-25, 5));
+            buildingsArray[i].transform.parent = buildingsInWorld.transform;
         }
     }
 }
